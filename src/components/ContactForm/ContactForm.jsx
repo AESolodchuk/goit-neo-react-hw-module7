@@ -14,7 +14,6 @@ const initialValues = {
   number: ''
 };
 
-const ErrMessage = (msg) => <p className={css.customerror}>{msg}</p>
 
 const ContactForm = ({ handleSubmit }) => {
 
@@ -30,12 +29,12 @@ const ContactForm = ({ handleSubmit }) => {
               <div className={css.wrapper}>
                 <label htmlFor={nameFieldId} className={css.title}>Name</label>
                 <Field type="text" name="name" id={nameFieldId} className={css.input} />
-                <ErrorMessage name="name" render={(msg)=>ErrMessage(msg)}/>
+                <ErrorMessage name="name" component='p' className={css.customerror}/>
               </div>
               <div className={css.wrapper}>
                 <label htmlFor={numberFieldId} className={css.title}>Number</label>
                 <Field type="numeric" name="number" id={numberFieldId} className={css.input} />
-                <ErrorMessage name="number" render={(msg)=>ErrMessage(msg)}/>
+                <ErrorMessage name="number" component='p' className={css.customerror}/>
               </div>
               <button type="submit" className={css.button}>Add contact</button>
           </Form>  
