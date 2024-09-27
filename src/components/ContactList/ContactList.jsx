@@ -3,7 +3,7 @@ import css from './ContactList.module.css'
 
 const ContactList = ({ contactList, handleDelete }) => 
         <ul className={css.list}>
-        {contactList.map(contact => <Contact key={contact.id} name={contact.name} number={contact.number} handleDelete={handleDelete} />)}
+        {contactList.map(contact => <Contact key={contact.id} id={contact.id} name={contact.name} number={contact.number} handleDelete={handleDelete} />)}
     </ul>
 
 
