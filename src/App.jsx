@@ -12,25 +12,15 @@ function App() {
   JSON.parse(localStorage.getItem('contacts')) || []
   )
   
-  const [filteredContacts, setFilteredContacts] = useState(contacts);
   const [searchValue, setSearchValue] = useState('')
 
   useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-    setFilteredContacts(contacts);
+    localStorage.setItem('contacts', JSON.stringify(contacts));   
   }, [contacts])
   
 
-  const handleSearchChange = ({target: {value}}) => {
+const handleSearchChange = ({ target: { value } }) => {
     setSearchValue(value);
-    if (value === '') {
-      setFilteredContacts(contacts);      
-    } else {
-      const filteredContacts = contacts.filter((contact) => {
-        return contact.name.toLowerCase().includes(value.toLowerCase());
-      });
-      setFilteredContacts(filteredContacts);
-    }
   };
   
   const handleSubmit = ({ name, number }, handleFunctions) => {  
@@ -48,7 +38,9 @@ function App() {
       <h1>Phonebook</h1>
       <ContactForm handleSubmit = {handleSubmit}/>
       <SearchBox handleSearchChange = {handleSearchChange} searchValue={searchValue}/>
-      {contacts.length > 0 && <ContactList contactList={filteredContacts} handleDelete={handleDelete} />}
+      {contacts.length > 0 && <ContactList  contactList={contacts.filter((contact) =>
+            contact.name.toLowerCase().includes(searchValue.toLowerCase())
+          )} handleDelete={handleDelete} />}
     </div>)
 }
 
