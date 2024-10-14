@@ -10,5 +10,4 @@ const ContactList = ({ contactList, handleDelete }) =>
     </ul>
 
 
-
 export default ContactList
