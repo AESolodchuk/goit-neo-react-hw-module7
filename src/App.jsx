@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid'
 import ContactForm from './components/ContactForm/ContactForm'
 import ContactList from './components/ContactList/ContactList'
@@ -23,10 +24,10 @@ const handleSearchChange = ({ target: { value } }) => {
     setSearchValue(value);
   };
   
-  const handleSubmit = ({ name, number }, handleFunctions) => {  
-    setContacts([...contacts, { "id": nanoid(), "name": name, 'number': number }])   
-    handleFunctions.resetForm();
-  };
+  // const handleSubmit = ({ name, number }, handleFunctions) => {  
+  //   setContacts([...contacts, { "id": nanoid(), "name": name, 'number': number }])   
+  //   handleFunctions.resetForm();
+  // };
   
   const handleDelete = (id) => {   
     setContacts(contacts.filter(contact => contact.id !== id))
@@ -36,7 +37,7 @@ const handleSearchChange = ({ target: { value } }) => {
   return (
     <div>
       <h1>Phonebook</h1>
-      <ContactForm handleSubmit = {handleSubmit}/>
+      <ContactForm />
       <SearchBox handleSearchChange = {handleSearchChange} searchValue={searchValue}/>
       {contacts.length > 0 && <ContactList  contactList={contacts.filter((contact) =>
             contact.name.toLowerCase().includes(searchValue.toLowerCase())
