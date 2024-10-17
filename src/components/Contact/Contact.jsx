@@ -1,12 +1,16 @@
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoIosContact } from "react-icons/io";
-import { useDispatch } from 'react-redux'
-import { deleteContact } from '../../redux/contactsSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteContact } from '../../redux/contactsOps'
+import { selectError, selectIsLoading } from "../../redux/selectors"; 
 import css from './Contact.module.css'
 
 
 
-const Contact = ({ id, name, number }) => {       
+const Contact = ({ id, name, number }) => {     
+
+    const isLoading = useSelector(selectIsLoading);
+    const error = useSelector(selectError);
     
     const dispatch = useDispatch();  
     const handleDelete = (id) => {          

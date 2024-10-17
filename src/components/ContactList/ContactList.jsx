@@ -1,19 +1,33 @@
-import { useSelector } from 'react-redux'
-import { contacts, filter } from '../../redux/selectors'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectFilteredContacts, selectIsLoading, selectError } from '../../redux/selectors'
+import { useEffect } from 'react'
+import { fetchContacts } from '../../redux/contactsOps'
 import Contact from '../Contact/Contact'
 import css from './ContactList.module.css'
 
 
 const ContactList = () => {
-    
-  const selectContacts = useSelector(contacts);
-  const selectNameFilter = useSelector(filter);
-  
-  const filteredContacts = selectContacts.filter(contact => contact.name.toLowerCase().includes(selectNameFilter.toLowerCase()));
 
+  const filteredContacts = useSelector(selectFilteredContacts);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+
+  const dispatch = useDispatch()
+ 
+  useEffect(() => {
+  dispatch(fetchContacts());
+  }, [dispatch]);
+  
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   if (filteredContacts.length > 0) {
-    return (
+    return (      
       <ul className={css.list}>
         {filteredContacts.map(({ name, number, id }) => (
           <li key={id} className={css.contact}>
